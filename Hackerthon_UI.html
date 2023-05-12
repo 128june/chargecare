@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .loading-container {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.5);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 9999;
+      }
+  
+      .loading-spinner {
+        border: 16px solid #f3f3f3;
+        border-top: 16px solid #3498db;
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+      }
+  
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    </style>
+    <title>ChargeCare</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body style="margin: 30px;">
+    <div class="loading-container">
+      <div class="loading-spinner"></div>
+    </div>
+
+    <div style="display:flex; justify-content: center;">
+      <div style="width: 80%; text-align: center; padding: 3%; font-size: 70px; font-family: Inspiration;">
+      <img src="./Cc.png" style="height: 70px;">
+      ChargeCare
+    </div>
+    </div>
+    
+    <div style="display:flex; justify-content: center;">
+      <input type="text"
+        style="
+            width: 80%; border-radius: 5px; border: 1px solid #ccc; 
+            padding: 5px; font-size: 40px; text-align: center; padding-top: 1%; padding-bottom: 1%;"
+        placeholder="검색어를 입력해주세요."
+        id="keywords" name="keywords" required />
+    </div>
+
+    <div style="display:flex; justify-content: center; margin-top: 30px;">
+      <div style="width: 80%; font-size: 30px;" id="result"></div>
+    </div>
+    
+    <script>
+
+      // <input> 요소의 id를 사용하여 해당 요소를 가져옵니다.
+      var input = document.getElementById("keywords");
+
+      // <input> 요소에 키보드 이벤트 리스너를 추가합니다.
+      input.addEventListener("keyup", function(event) {
+        // 키 코드가 13 (엔터 키)인 경우에만 이벤트를 처리합니다.
+        if (event.keyCode === 13) {
+          // 엔터 키 이벤트가 발생했을 때 수행할 동작을 여기에 작성합니다.
+          var inputValue = input.value;
+          search();
+        }
+      });
+
+      var loadingContainer = document.querySelector('.loading-container');
+
+      function showLoading() {
+        loadingContainer.style.display = 'flex';
+      }
+
+      function hideLoading() {
+        loadingContainer.style.display = 'none';
+      }
+
+      function search() {
+        const api_key = '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';
+        const keywords = document.getElementById('keywords').value
+        const messages = [
+          { role: 'system', content: 'You are a helpful assistant.' },
+          { role: 'user', content: "전기차 관련 검색내용입니다. 다음 내용에 대한 답변 해주세요. '" 
+                                    + keywords + "'. 그리고 하단에는 조치내용이 무관하면 관리자 번호 1577-1577 으로 연락하라고 안내해주세요." },
+        ]
+        const config = {
+          headers: {
+            Authorization: `Bearer ${api_key}`,
+            'Content-Type': 'application/json',
+          },
+        }
+        const data = {
+          model: 'gpt-3.5-turbo',
+          temperature: 0.5,
+          n: 1,
+          messages: messages,
+        }
+
+        showLoading();
+        axios
+          .post('https://api.openai.com/v1/chat/completions', data, config)
+          .then(function (response) {
+            let resultDiv = document.getElementById('result')
+            resultDiv.innerHTML = ''
+            response.data.choices.forEach(function (choice, index) {
+              resultDiv.innerHTML += `<div>${choice.message.content
+                .split('\n')
+                .join('<br/>')}</div>`
+            })
+          })
+          .catch(function (error) {
+            console.error(error)
+          })
+          .finally(function() {
+            hideLoading();
+        });
+      }
+    </script>
+  </body>
+</html>
