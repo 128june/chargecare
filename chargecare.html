@@ -2,19 +2,26 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <style>
+    html {
+      height: 100%;
+    }
+    body{
+      height: 100%;
+    }
+
     .chat-container {
-      max-width: 600px;
-      margin: 0 auto;
+      width: 100%;
+      margin: 0 ;
+      height: 100%;
       padding: 20px;
       background-color: #f2f2f2;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
       font-family: Arial, sans-serif;
     }
 
     .chat-container h1 {
-      font-size: 24px;
+      font-size: 7vw;
       text-align: center;
       margin-top: 0;
     }
@@ -28,10 +35,14 @@
     .output-left {
       margin-top: 5%;
       margin-bottom: 5%;
+
+      font-size: 5vw;
     }
 
     .output-right {
       margin-left: 10%;
+
+      font-size: 5vw;
     }
 
     .chat-container .user-message {
@@ -72,7 +83,7 @@
       border-radius: 5px;
       border: 1px solid #ccc;
       padding: 5px;
-      font-size: 16px;
+      font-size: 5vw;
     }
 
     .chat-container .input-container input[type="button"] {
@@ -98,14 +109,15 @@
 <body>
 <div class="chat-container">
   <h1>ChargeCare Chatbot</h1>
-  <div class="chat-output" id="result"></div>
-  <div class="loading-container">
-    <div class="loading-spinner"></div>
-  </div>
   <div class="input-container">
     <input type="text" id="keywords" name="keywords" required />
     <input type="button" value="검색" onclick="search()" />
   </div>
+  <div class="chat-output" id="result"></div>
+  <div class="loading-container">
+    <div class="loading-spinner"></div>
+  </div>
+
 </div>
 
 <script>
