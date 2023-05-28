@@ -42,11 +42,33 @@
       margin-top: 5%;
       margin-bottom: 5%;
 
+      position: relative;
+      background-color: #f9f9f9;
+      border-radius: 6px;
+      padding: 10px;
+      display: inline-block;
+
       font-size: 5vw;
+    }
+
+    .output-left::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: -10px;
+      border: 10px solid transparent;
+      border-left-color: #f9f9f9;
+      transform: translateY(-50%);
     }
 
     .output-right {
       margin-left: 10%;
+
+      position: relative;
+      background-color: #f9f9f9;
+      border-radius: 6px;
+      padding: 10px;
+      display: inline-block;
 
       font-size: 5vw;
     }
@@ -114,9 +136,9 @@
 </head>
 <body>
 <div class="chat-container">
-  <h1>ChargeCare Chatbot</h1>
+  <h1><img style="width: 10%" src="Cc.png"> ChargeCare Chatbot</h1>
   <div class="input-container">
-    <input type="text" id="keywords" name="keywords" required />
+    <input type="text" id="keywords" name="keywords" placeholder="검색어를 입력해주세요." required />
     <input type="button" value="검색" onclick="search()" />
   </div>
   <div class="chat-output" id="result">
