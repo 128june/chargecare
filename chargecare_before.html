@@ -89,8 +89,7 @@
         const keywords = document.getElementById('keywords').value
         const messages = [
           { role: 'system', content: 'You are a helpful assistant.' },
-          { role: 'user', content: "전기차 관련 검색내용입니다. 다음 내용에 대한 답변 해주세요. '" 
-                                    + keywords + "'. 그리고 하단에는 조치내용이 무관하면 관리자 번호 1577-1577 으로 연락하라고 안내해주세요." },
+          { role: 'user', content: keywords },
         ]
         const config = {
           headers: {
