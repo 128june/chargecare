@@ -163,6 +163,7 @@
   });
 
   const api_key = 'sk-'+'BOp5FtjdijoRFghwg4nTT3BlbkFJepqe4VexDsUqOX5bfpDV';
+  // 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
 
   let resultDiv = document.getElementById('result');
   let loadingContainer = document.querySelector('.loading-container');
@@ -202,8 +203,7 @@
       { role: 'system', content: 'You are a helpful assistant.' },
       {
         role: 'user',
-        content: `전기차 충전소 관련 검색내용입니다. 다음 내용에 70자 내외로 답변 해주세요. "${keywords}".
-        그리고 하단에는 조치내용이 무관하면 관리자 번호 1577-1577 으로 연락하라고 안내해주세요.`
+        content: keywords
       },
     ];
     const config = {
